@@ -62,7 +62,7 @@ public class Main {
     }
 
     static void shutdown() {
-        System.out.println("Shutting down application...");
+        System.out.println("Shutting down application!");
         System.exit(0);
     }
 }
