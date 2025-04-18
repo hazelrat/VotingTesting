@@ -1,23 +1,14 @@
 package org.assignment;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static org.assignment.Candidate.*;
+import static org.assignment.Logic.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        ArrayList<Candidate> candidates = new ArrayList<Candidate>();
-        Candidate addition1 = new Candidate(1, "Politician McGovern", 11);
-        Candidate addition2 = new Candidate(2, "Politician McGoverness", 4);
-        candidates.add(addition1);
-        candidates.add(addition2);
-        addCandidate(candidates);
-        // clearCandidates();
-
-        Candidate readCandidate = retrieveCandidates();
-        System.out.println(readCandidate.identifier + readCandidate.name + readCandidate.votes);
-        // mainMenu();
     }
 
     static void mainMenu() {
@@ -25,8 +16,9 @@ public class Main {
                 Welcome to the VoteApp! Please select an option from below:
                 1: I would like to lodge a vote.
                 2: I would like to edit the list of candidates.
-                3: I would like to edit my password.
-                4: I would like to exit the application.
+                4: I would like to access data relating to the election.
+                5: I would like to edit my password.
+                6: I would like to exit the application.
                 """);
 
         Scanner menu = new Scanner(System.in);

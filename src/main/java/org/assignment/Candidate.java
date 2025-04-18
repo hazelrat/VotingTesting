@@ -2,14 +2,15 @@ package org.assignment;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Candidate {
-    @JsonProperty("identifier")
-    Integer identifier;
     @JsonProperty("name")
     String name;
     @JsonProperty("votes")
@@ -18,28 +19,24 @@ public class Candidate {
     // Class constructor
     @JsonCreator
     public Candidate(
-            @JsonProperty("identifier") int canIdentifier,
             @JsonProperty("name") String canName,
             @JsonProperty("votes") int canVotes) {
-        this.identifier = canIdentifier;
         this.name = canName;
         this.votes = canVotes;
     }
 
-    static void addVote(String candidateName, boolean vote) throws IOException {
-
+    // Getters
+    String getIdentifier() {
+        return this.name;
     }
 
-    static void addCandidate(ArrayList<Candidate> candidate) throws IOException {
+    Integer getVotes() {
+        return this.votes;
+    }
+
+    static void addCandidates(ArrayList<Candidate> candidate) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        for (int i = 0; i < candidate.size(); i++) {
-            Candidate newEntry = new Candidate(candidate.get(i).identifier, candidate.get(i).name, candidate.get(i).votes);
-            objectMapper.writeValue(new File("src/main/java/org/assignment/candidates.json"), newEntry);
-        }
-    }
-
-    // retrieve, loop, cut out the unwanted one, return?
-    static void removeCandidate(String identifier) throws IOException {
+        objectMapper.writeValue(new File("src/main/java/org/assignment/candidates.json"), candidate);
     }
 
     static void clearCandidates() throws IOException {
@@ -47,11 +44,32 @@ public class Candidate {
         objectMapper.writeValue(new File("src/main/java/org/assignment/candidates.json"), null);
     }
 
-    static Candidate retrieveCandidates() throws IOException {
+    static ArrayList<Candidate> retrieveCandidates() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File("src/main/java/org/assignment/candidates.json"), Candidate.class);
+        return objectMapper.readValue(new File("src/main/java/org/assignment/candidates.json"), new TypeReference<>() {});
     }
 
-    static void endElection() {
+    // Reliant on retrieveCandidates.
+    static void addVote(String candidateName) throws IOException {
+        ArrayList<Candidate> currentValues = retrieveCandidates();
+        for (Candidate currentValue : currentValues) {
+            if (Objects.equals(currentValue.name, candidateName)) {
+                currentValue.votes += 1;
+            }
+        }
+        addCandidates(currentValues);
+    }
+
+    // retrieve, loop, cut out the unwanted one, return?
+    static void removeCandidate(String candidateName) throws IOException {
+        ArrayList<Candidate> currentValues = retrieveCandidates();
+        currentValues.removeIf(currentValue -> Objects.equals(currentValue.name, candidateName));
+        addCandidates(currentValues);
+    }
+
+
+    static String calculateWinner() throws IOException {
+        ArrayList<Candidate> currentValues = retrieveCandidates();
+        return "";
     }
 }
