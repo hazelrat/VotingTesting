@@ -2,7 +2,6 @@ package org.assignment;
 
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.assignment.Logic.*;
@@ -11,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class LogicTests {
 
     @Test
-    public void totalVoteCountTest() throws IOException {
+    public void totalVoteCountTest() {
         ArrayList<Candidate> candidatesList = new ArrayList<>();
         Candidate Object1 = new Candidate ("John Smith", 2);
         Candidate Object2 = new Candidate ("Jane Smith", 12);
@@ -25,7 +24,7 @@ public class LogicTests {
     }
 
     @Test
-    public void totalVoteRangeTest() throws IOException {
+    public void totalVoteRangeTest() {
         ArrayList<Candidate> candidatesList = new ArrayList<>();
         Candidate Object1 = new Candidate ("John Smith", 2);
         Candidate Object2 = new Candidate ("Jane Smith", 12);
@@ -39,7 +38,7 @@ public class LogicTests {
     }
 
     @Test
-    public void voteModeTest() throws IOException {
+    public void voteModeTest() {
         ArrayList<Candidate> candidatesList = new ArrayList<>();
         Candidate Object1 = new Candidate ("John Smith", 2);
         Candidate Object2 = new Candidate ("Jane Smith", 12);
@@ -53,7 +52,7 @@ public class LogicTests {
     }
 
     @Test
-    public void getPercentagesTest() throws IOException {
+    public void getPercentagesTest() {
         ArrayList<Candidate> candidatesList = new ArrayList<>();
         Candidate Object1 = new Candidate ("John Smith", 5);
         Candidate Object2 = new Candidate ("Jane Smith", 10);
